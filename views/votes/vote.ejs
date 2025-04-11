@@ -27,7 +27,12 @@
                         <!-- <input type="number" class="form-control" id="amount" value="500" readonly> -->
                     </div>
                     
-                    <button type="submit" class="btn btn-primary w-100">Pay with Paystack</button>
+                    <!-- <button type="submit" class="btn btn-primary btn-loading w-100" id="paystackButton">
+                        <span class="btn-text">Pay with Paystack</span>
+                    </button> -->
+                    <button type="submit" class="btn btn-primary w-100" id="paystackButton">
+                        <span class="btn-text">Pay with Paystack</span>
+                    </button>
                 </form>
             </div>
         </div>
@@ -38,9 +43,11 @@
 <script>
 document.getElementById('voteForm').addEventListener('submit', function(e) {
     e.preventDefault();
+
+    const paystackButton = document.getElementById('paystackButton');
+  setButtonLoading(paystackButton, true);
     
-    // const email = document.getElementById('email').value;
-    const amount = document.getElementById('amount').value * 100; // Convert to kobo
+    const amount = document.getElementById('amount').value * 100; 
     const contestantId = document.getElementById('contestantId').value;
     
     const handler = PaystackPop.setup({
@@ -50,6 +57,7 @@ document.getElementById('voteForm').addEventListener('submit', function(e) {
         currency: 'NGN',
         ref: 'VOTE-' + Math.floor(Math.random() * 1000000000 + 1),
         onClose: function() {
+            setButtonLoading(paystackButton, false);
             alert('Payment window closed.');
         },
         callback: function(response) {

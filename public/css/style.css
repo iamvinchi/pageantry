@@ -126,3 +126,72 @@ body {
     }
 }
 
+/* Button Loading Spinner */
+.btn-loading {
+    position: relative;
+    pointer-events: none;
+  }
+  
+  .btn-loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 3px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: button-loading-spinner 1s linear infinite;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  
+  .btn-loading .btn-text {
+    opacity: 1;
+    transition: opacity 0.2s;
+  }
+  
+  .btn-loading.is-loading::after {
+    opacity: 1;
+  }
+  
+  .btn-loading.is-loading .btn-text {
+    opacity: 0;
+  }
+  
+  @keyframes button-loading-spinner {
+    from {
+      transform: rotate(0turn);
+    }
+    to {
+      transform: rotate(1turn);
+    }
+  }
+  
+  /* Pulse effect alternative */
+  .btn-pulse {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-pulse::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+  }
+  
+  .btn-pulse.is-loading::after {
+    transform: translateX(100%);
+    transition: transform 0.6s;
+  }
+
