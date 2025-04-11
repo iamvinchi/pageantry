@@ -1,0 +1,145 @@
+<%- include('../partials/landing-header') %>
+    
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="hero-title">Vote for Your Favorite Contestant</h1>
+                <p class="hero-subtitle">Support your favorite beauty pageant contestant by casting your vote today!</p>
+                <div class="hero-buttons">
+                    <a href="/contestants" class="btn btn-primary btn-lg me-3">View Contestants</a>
+                    <a href="/contestants/register" class="btn btn-outline-light btn-lg">Register</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="/images/hero-image.png" alt="Pageant Contestants" class="img-fluid hero-image">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">How It Works</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="step-card text-center p-4 mb-4">
+                    <div class="step-number">1</div>
+                    <h3>Register</h3>
+                    <p>Contestants register with their details and profile photo</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card text-center p-4 mb-4">
+                    <div class="step-number">2</div>
+                    <h3>Share</h3>
+                    <p>Contestants get a unique link to share with supporters</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card text-center p-4 mb-4">
+                    <div class="step-number">3</div>
+                    <h3>Vote</h3>
+                    <p>Fans vote via secure Paystack payment (₦500 per vote)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Contestants -->
+<section class="featured-contestants py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Featured Contestants</h2>
+        <div class="row">
+            <% featuredContestants.forEach(contestant => { %>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="contestant-card">
+                    <img src="<%= contestant.photo %>" alt="<%= contestant.fullName %>" class="contestant-image">
+                    <div class="contestant-info">
+                        <h4><%= contestant.fullName %></h4>
+                        <p class="votes"><i class="bi bi-heart-fill"></i> <%= contestant.voteCount %> votes</p>
+                        <a href="/votes/<%= contestant.shareableLink %>" class="btn btn-vote">Vote Now</a>
+                    </div>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+        <div class="text-center mt-4">
+            <a href="/contestants" class="btn btn-outline-primary">View All Contestants</a>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">What People Are Saying</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="testimonial-card p-4">
+                    <div class="stars mb-3">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="testimonial-text">"This platform made it so easy to support my favorite contestant. The voting process was seamless!"</p>
+                    <div class="testimonial-author">
+                        <strong>Oruma Jude</strong>
+                        <p>Voter</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="testimonial-card p-4">
+                    <div class="stars mb-3">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="testimonial-text">"As a contestant, I love how easy it is to share my voting link with my supporters."</p>
+                    <div class="testimonial-author">
+                        <strong>Amanda Okafor</strong>
+                        <p>Contestant</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="testimonial-card p-4">
+                    <div class="stars mb-3">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-half"></i>
+                    </div>
+                    <p class="testimonial-text">"The platform is beautiful and works perfectly on my phone. Great job!"</p>
+                    <div class="testimonial-author">
+                        <strong>Pascal Ikechukwu</strong>
+                        <p>Voter</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section py-5 text-white">
+    <div class="container text-center">
+        <h2 class="mb-4">Ready to Participate?</h2>
+        <p class="mb-5">Join the competition or support your favorite contestant today!</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="/contestants/register" class="btn btn-light btn-lg">Register as Contestant</a>
+            <a href="/contestants" class="btn btn-outline-light btn-lg">Vote Now</a>
+        </div>
+    </div>
+</section>
+
+<%- include('../partials/landing-footer') %>

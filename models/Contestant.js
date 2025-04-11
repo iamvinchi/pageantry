@@ -1,0 +1,50 @@
+const mongoose = require('mongoose');
+
+const contestantSchema = new mongoose.Schema({
+    fullName: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    age: {
+        type: Number,
+        required: true
+    },
+    post: {
+        type: String,
+        required: true,
+        enum: ['Miss CYON', 'Master CYON', 'Face of CYON']
+    },
+    bio: {
+        type: String,
+        required: true
+    },
+    photo: {
+        type: String,
+        required: true
+    },
+    registrationDate: {
+        type: Date,
+        default: Date.now
+    },
+    voteCount: {
+        type: Number,
+        default: 0
+    },
+    shareableLink: {
+        type: String,
+        unique: true
+    }
+});
+
+const Contestant = mongoose.model('Contestant', contestantSchema);
+
+module.exports = Contestant;

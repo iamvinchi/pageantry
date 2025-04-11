@@ -1,0 +1,48 @@
+<%- include('../partials/header') %>
+<div class="card">
+    <div class="card-body text-center">
+        <h2 class="card-title">Share Your Voting Link</h2>
+        <p class="card-text">Share this link with your friends and fans to get more votes!</p>
+        
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="shareLink" value="<%= shareUrl %>" readonly>
+            <button class="btn btn-outline-secondary" onclick="copyToClipboard()">Copy</button>
+        </div>
+        
+        <div class="alert alert-success" id="copyAlert" style="display: none;">
+            Link copied to clipboard!
+        </div>
+        
+        <div class="mt-4">
+            <p>Share via:</p>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=<%= encodeURIComponent(shareUrl) %>" 
+               target="_blank" class="btn btn-primary me-2">
+                Facebook
+            </a>
+            <a href="https://twitter.com/intent/tweet?url=<%= encodeURIComponent(shareUrl) %>&text=Vote%20for%20me%20in%20the%20pageant!" 
+               target="_blank" class="btn btn-info me-2">
+                Twitter
+            </a>
+            <a href="whatsapp://send?text=Vote%20for%20me%20in%20the%20pageant!%20<%= encodeURIComponent(shareUrl) %>" 
+               target="_blank" class="btn btn-success">
+                WhatsApp
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyToClipboard() {
+    const copyText = document.getElementById("shareLink");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    
+    const alert = document.getElementById("copyAlert");
+    alert.style.display = "block";
+    setTimeout(() => {
+        alert.style.display = "none";
+    }, 3000);
+}
+</script>
+<%- include('../partials/footer') %>
