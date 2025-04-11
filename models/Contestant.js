@@ -5,11 +5,6 @@ const contestantSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
     phone: {
         type: String,
         required: true
@@ -28,6 +23,10 @@ const contestantSchema = new mongoose.Schema({
         required: true
     },
     photo: {
+        type: String,
+        required: true
+    },
+    photoPublicId: {
         type: String,
         required: true
     },

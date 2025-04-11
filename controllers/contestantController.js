@@ -1,16 +1,7 @@
 const Contestant = require('../models/Contestant');
 const { generateShareableLink } = require('../utils/helpers');
+const { cloudinary } = require('../config/cloudinary');
 const path = require('path');
-
-// exports.listContestants = async (req, res) => {
-//     try {
-//         const contestants = await Contestant.find().sort({ voteCount: -1 });
-//         res.render('contestants/list', { contestants });
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).send('Server Error');
-//     }
-// };
 
 exports.listContestants = async (req, res) => {
     try {
@@ -37,26 +28,25 @@ exports.showRegistrationForm = (req, res) => {
     res.render('contestants/register');
 };
 
+
 exports.registerContestant = async (req, res) => {
     try {
-        const { fullName, email, phone, age, post, bio } = req.body;
+        const { fullName, phone, age, post, bio } = req.body;
         
         // Check if file was uploaded
         if (!req.file) {
             return res.status(400).send('Please upload a photo');
         }
 
-        // Create the photo URL path (relative to your public folder)
-        const photo = '/uploads/' + req.file.filename;
-
+        // Create contestant with Cloudinary URL
         const contestant = new Contestant({
             fullName,
-            email,
             phone,
             age,
             post,
             bio,
-            photo
+            photo: req.file.path,
+            photoPublicId: req.file.filename
         });
 
         // Generate shareable link
@@ -69,15 +59,34 @@ exports.registerContestant = async (req, res) => {
     } catch (error) {
         console.error(error);
         
-        // If there's an error, you might want to delete the uploaded file
+        // If there's an error, delete the uploaded file from Cloudinary
         if (req.file) {
-            const fs = require('fs');
-            const filePath = path.join(__dirname, '../public', req.file.path);
-            fs.unlink(filePath, (err) => {
-                if (err) console.error('Error deleting uploaded file:', err);
-            });
+            await cloudinary.uploader.destroy(req.file.filename);
         }
         
+        res.status(500).send('Server Error');
+    }
+};
+
+// Add this new method to handle image deletion when deleting contestants
+exports.deleteContestant = async (req, res) => {
+    try {
+        const contestant = await Contestant.findById(req.params.id);
+        
+        if (!contestant) {
+            return res.status(404).send('Contestant not found');
+        }
+
+        // Delete image from Cloudinary
+        if (contestant.photoPublicId) {
+            await cloudinary.uploader.destroy(contestant.photoPublicId);
+        }
+
+        await Contestant.findByIdAndDelete(req.params.id);
+        
+        res.redirect('/contestants');
+    } catch (error) {
+        console.error(error);
         res.status(500).send('Server Error');
     }
 };

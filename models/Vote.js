@@ -6,10 +6,6 @@ const voteSchema = new mongoose.Schema({
         ref: 'Contestant',
         required: true
     },
-    voterEmail: {
-        type: String,
-        required: true
-    },
     amount: {
         type: Number,
         required: true

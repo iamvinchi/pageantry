@@ -21,7 +21,7 @@ exports.showVotePage = async (req, res) => {
 
 exports.processVote = async (req, res) => {
     try {
-        const { contestantId, email, amount, reference } = req.body;
+        const { contestantId, amount, reference } = req.body;
         
         // Verify payment with Paystack
         const response = await axios.get(`https://api.paystack.co/transaction/verify/${reference}`, {
@@ -49,7 +49,6 @@ exports.processVote = async (req, res) => {
        
             const vote = new Vote({
                 contestant: contestantId,
-                voterEmail: email,
                 amount: amountPaidInNaira, 
                 transactionReference: reference,
                 status: 'successful'

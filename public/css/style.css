@@ -34,14 +34,14 @@ body {
     border-color: #2e59d9;
 }
 
-/* #searchInput {
+#searchInput {
     padding: 12px 15px;
     border-radius: 8px 0 0 8px;
     border: 1px solid #ced4da;
     transition: all 0.3s ease;
-} */
+}
 
-/* #searchInput:focus {
+#searchInput:focus {
     border-color: #6c63ff;
     box-shadow: 0 0 0 0.25rem rgba(108, 99, 255, 0.25);
 }
@@ -58,7 +58,7 @@ body {
 #searchButton:hover {
     background-color: #5a52d4;
     border-color: #5a52d4;
-} */
+}
 
 /* Animation for search results */
 .contestant-card {
@@ -93,58 +93,7 @@ body {
 
 }
 
-/* Search Container */
-.search-container {
-    margin-bottom: 2rem;
-    width: 100%;
-}
 
-/* Search Input */
-.search-input {
-    padding: 0.75rem 1rem;
-    border: 1px solid #ced4da;
-    border-radius: 0.5rem 0 0 0.5rem;
-    font-size: 1rem;
-    width: 100%;
-    transition: all 0.3s ease;
-    background-color: #fff;
-}
-
-/* Search Button */
-.search-button {
-    padding: 0.75rem 1.25rem;
-    background-color: #6c63ff;
-    color: white;
-    border: none;
-    border-radius: 0 0.5rem 0.5rem 0;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Search Button Icon */
-.search-button i {
-    font-size: 1.25rem;
-}
-
-/* Hover and Focus States */
-.search-input:focus {
-    outline: none;
-    border-color: #6c63ff;
-    box-shadow: 0 0 0 0.2rem rgba(108, 99, 255, 0.25);
-}
-
-.search-button:hover {
-    background-color: #5a52d4;
-}
-
-/* Input Group - Keeps input and button together */
-.input-group {
-    display: flex;
-    width: 100%;
-}
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
