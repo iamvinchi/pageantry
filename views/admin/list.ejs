@@ -1,32 +1,9 @@
 <%- include('../partials/admin-header') %>
 <div style="display: flex; justify-content: space-between;">
-    <h1 class="mb-4">Pageant Contestants</h1>
+    <h1 class="mb-4">Pageant Contestants admin</h1>
 </div>
 
-<!-- Add Search Form -->
-<!-- <form method="GET" action="/contestants" class="mb-4"> -->
-
-    <!-- <div class="search-container">
-        <div class="input-group">
-            <input 
-                type="text" 
-                id="searchInput" 
-                name="search"
-                class="form-control search-input" 
-                placeholder="Search contestants by name..."
-                aria-label="Search contestants"
-                value="<%= searchQuery %>"
-            >
-            <button class="btn search-button" type="button" id="searchButton" aria-label="Search">
-                <i class="bi bi-search"></i>
-            </button>
-        </div>
-    </div> -->
-<!-- </form> -->
-
-<!-- Add empty state for no results -->
-<div id="noResults" class="alert alert-info d-none">No contestants found matching your search.</div>
-<!-- In views/contestants/list.ejs -->
+<% if (contestants.length) { %>
 <h2>Miss CYON Contestants</h2>
 <div class="row">
     <% contestants.filter(c => c.post === 'Miss CYON').forEach(contestant => { %>
@@ -69,6 +46,23 @@
         </div>
     <% }); %>
 </div>
+<% } else { %>
+    <main class="container">
+        <div class="empty-state">
+           
+            <div class="empty-state-icon">
+                <i class="fas fa-inbox"></i>
+            </div>
+
+            <h2 class="mb-3"> 'No record to show here'</h2>
+
+            <p class="text-muted mb-4" style="max-width: 600px;">
+                 'There are currently no contestants to display. Check back later.'
+            </p>
+
+        </div>
+    </main>
+  <% } %>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
