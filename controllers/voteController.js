@@ -8,7 +8,7 @@ exports.showVotePage = async (req, res) => {
         if (!contestant) {
             return res.status(404).send('Contestant not found');
         }
-        
+
         res.render('votes/vote', { 
             contestant,
             paystackKey: process.env.PAYSTACK_PUBLIC_KEY 

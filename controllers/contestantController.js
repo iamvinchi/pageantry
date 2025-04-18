@@ -68,29 +68,6 @@ exports.registerContestant = async (req, res) => {
     }
 };
 
-// Add this new method to handle image deletion when deleting contestants
-exports.deleteContestant = async (req, res) => {
-    try {
-        const contestant = await Contestant.findById(req.params.id);
-        
-        if (!contestant) {
-            return res.status(404).send('Contestant not found');
-        }
-
-        // Delete image from Cloudinary
-        if (contestant.photoPublicId) {
-            await cloudinary.uploader.destroy(contestant.photoPublicId);
-        }
-
-        await Contestant.findByIdAndDelete(req.params.id);
-        
-        res.redirect('/contestants');
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Server Error');
-    }
-};
-
 exports.showShareLink = async (req, res) => {
     try {
         const contestant = await Contestant.findById(req.params.id);

@@ -1,0 +1,108 @@
+<%- include('../partials/admin-header') %>
+<div style="display: flex; justify-content: space-between;">
+    <h1 class="mb-4">Pageant Contestants</h1>
+</div>
+
+<!-- Add Search Form -->
+<!-- <form method="GET" action="/contestants" class="mb-4"> -->
+
+    <!-- <div class="search-container">
+        <div class="input-group">
+            <input 
+                type="text" 
+                id="searchInput" 
+                name="search"
+                class="form-control search-input" 
+                placeholder="Search contestants by name..."
+                aria-label="Search contestants"
+                value="<%= searchQuery %>"
+            >
+            <button class="btn search-button" type="button" id="searchButton" aria-label="Search">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+    </div> -->
+<!-- </form> -->
+
+<!-- Add empty state for no results -->
+<div id="noResults" class="alert alert-info d-none">No contestants found matching your search.</div>
+<!-- In views/contestants/list.ejs -->
+<h2>Miss CYON Contestants</h2>
+<div class="row">
+    <% contestants.filter(c => c.post === 'Miss CYON').forEach(contestant => { %>
+        <div class="col-md-4 mb-4" id="contestant-<%= contestant._id %>">
+            <div class="card h-100">
+                <img src="<%= contestant.photo %>" class="card-img-top" alt="<%= contestant.fullName %>">
+                <div class="card-body ">
+                    <h5 class="card-title"><%= contestant.fullName %></h5>
+                    <p class="card-text"><%= contestant.bio %></p>
+                    <p class="text-muted">Age: <%= contestant.age %></p>
+                    <p class="text-muted">Post: <%= contestant.post %></p>
+                    <p class="fw-bold">Votes: <%= contestant.voteCount %></p>
+                    <div style="display: flex; justify-content: space-between;">
+                        <a href="/admin/contestants/<%= contestant._id %>" class="btn btn-primary" style="background-color: gold; border-color: gold; color: black;">Update</a>
+                        <button class="btn btn-danger delete-contestant" data-id="<%= contestant._id %>" style="background-color: gold; border-color: gold; color: black;">Delete</button>
+                    </div>                </div>
+            </div>
+        </div>
+    <% }); %>
+</div>
+
+<h2>Master CYON Contestants</h2>
+<div class="row">
+    <% contestants.filter(c => c.post === 'Master CYON').forEach(contestant => { %>
+        <div class="col-md-4 mb-4" id="contestant-<%= contestant._id %>">
+            <div class="card h-100">
+                <img src="<%= contestant.photo %>" class="card-img-top" alt="<%= contestant.fullName %>">
+                <div class="card-body">
+                    <h5 class="card-title"><%= contestant.fullName %></h5>
+                    <p class="card-text"><%= contestant.bio %></p>
+                    <p class="text-muted">Age: <%= contestant.age %></p>
+                    <p class="text-muted">Post: <%= contestant.post %></p>
+                    <p class="fw-bold">Votes: <%= contestant.voteCount %></p>
+                    <div style="display: flex; justify-content: space-between;">
+                        <a href="/admin/contestants/<%= contestant._id %>" class="btn btn-primary" style="background-color: gold; border-color: gold; color: black;">Update</a>
+                        <button class="btn btn-danger delete-contestant" data-id="<%= contestant._id %>" style="background-color: gold; border-color: gold; color: black;">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% }); %>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.delete-contestant').forEach(button => {
+            button.addEventListener('click', function() {
+                const contestantId = this.getAttribute('data-id');
+                console.log("contestantId", contestantId)
+                
+                if (confirm('Are you sure you want to delete this contestant?')) {
+                    fetch(`/admin/contestants/${contestantId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    })
+                    .then(async (response) => {
+                        console.log("response", response)
+
+                        const data = await response.json();
+    
+                        if (data.status === 'success') {
+                             document.getElementById(`contestant-${contestantId}`).remove();
+                            alert('Contestant deleted successfully');
+                            window.location.href = data.redirect;
+                        }else {
+                            throw new Error('Failed to delete contestant');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error deleting contestant');
+                    });
+                }
+            });
+        });
+    });
+    </script>

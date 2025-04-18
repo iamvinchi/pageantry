@@ -16,8 +16,9 @@ const contestantSchema = new mongoose.Schema({
     post: {
         type: String,
         required: true,
-        enum: ['Miss CYON', 'Master CYON', 'Face of CYON']
+        enum: ['Miss CYON', 'Master CYON']
     },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'Admin' },
     bio: {
         type: String,
         required: true

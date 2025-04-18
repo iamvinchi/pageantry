@@ -37,7 +37,20 @@ body {
 /* Hero Section */
 .hero-section {
     padding: 180px 0 100px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: rgba(0, 0, 0, 0.676);
+    background-image: 
+    url('/images/patronSaint.jpeg'),
+    url('/images/cyon.jpeg');
+  background-position: 
+    top left,
+    center center;
+  background-size: 
+    50% auto,
+    cover;
+  background-repeat: 
+    no-repeat,
+    no-repeat;
+  background-blend-mode: overlay;
     color: white;
     position: relative;
     overflow: hidden;
@@ -71,6 +84,7 @@ body {
     border-radius: 15px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     animation: float 6s ease-in-out infinite;
+    color: gold;
 }
 
 @keyframes float {
@@ -100,7 +114,8 @@ body {
 .step-number {
     width: 50px;
     height: 50px;
-    background: var(--primary-color);
+    /* background: var(--primary-color); */
+    background: gold;
     color: white;
     border-radius: 50%;
     display: flex;
@@ -147,8 +162,9 @@ body {
 }
 
 .btn-vote {
-    background: var(--primary-color);
-    color: white;
+    /* background: var(--primary-color); */
+    background: gold;
+    color: black;
     width: 100%;
 }
 
@@ -246,6 +262,7 @@ body {
     
     .hero-image {
         margin-top: 3rem;
+        color: gold
     }
 }
 
