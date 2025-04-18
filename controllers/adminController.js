@@ -8,6 +8,7 @@ const bcrypt = require('bcryptjs');
 const helpers = require('../utils/helpers');
 
 const AppError = helpers.AppError
+const showError = helpers.showError
 
 exports.addAdmin = async (req, res) => {
   try {
@@ -53,7 +54,7 @@ exports.login = async (req, res) => {
       });
     
   
-    
+      req.flash('success', "Login successful");
     res.status(200).json({
         status: 'success',
         token,
@@ -61,6 +62,7 @@ exports.login = async (req, res) => {
         redirect: '/admin'
       });
   } catch (err) {
+    req.flash('error', err.message);
     res.status(400).json({
       status: 'fail',
       message: err.message
@@ -90,15 +92,19 @@ exports.protect = async (req, res, next) => {
       req.user = currentUser;
       next();
     } catch (err) {
-        if (err.name === 'JsonWebTokenError') {
-            req.flash('error', 'Invalid token. Please log in again.');
-          } else if (err.name === 'TokenExpiredError') {
-            req.flash('error', 'Your session has expired. Please log in again.');
-          } else {
-            req.flash('error', 'An error occurred. Please try again.');
-            return res.redirect('/admin/login');
-          }
-          return res.redirect('/admin/login');
+        let errorMessage;
+    
+    if (err.name === 'JsonWebTokenError') {
+      errorMessage = 'Invalid token. Please log in again.';
+    } else if (err.name === 'TokenExpiredError') {
+      errorMessage = 'Your session has expired. Please log in again.';
+    } else {
+      errorMessage = 'An authentication error occurred. Please try again.';
+      console.error('Authentication error:', err); 
+    }
+    
+    req.flash('error', errorMessage);
+    return res.redirect('/admin/login');
     }
   };
   

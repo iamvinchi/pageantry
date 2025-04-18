@@ -5,9 +5,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const Contestant = require('./models/Contestant')
-const withNotifications = require('./utils/notify');
 const methodOverride = require('method-override');
-
+const flash = require('connect-flash');
+const session = require('express-session');
 
 
 const adminRoutes = require('./routes/adminRoutes');
@@ -30,11 +30,16 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+  }));
+app.use(flash());
 
 // View engine setup
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-// app.use(withNotifications);
 
 // Home route
 app.get('/', async (req, res) => {
