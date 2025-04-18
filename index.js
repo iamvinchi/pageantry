@@ -31,7 +31,7 @@ mongoose.connect(process.env.MONGODB_URI, {
             email: "cyon-admin@gmail.com", 
             password: "admin@123"
         })
-        onsole.log('Admin seeded') 
+        console.log('Admin seeded') 
     }
 })
 .catch(err => console.error('MongoDB connection error:', err));
