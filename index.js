@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const Contestant = require('./models/Contestant')
+const Admin = require('./models/Admin')
 const methodOverride = require('method-override');
 const flash = require('connect-flash');
 const session = require('express-session');
@@ -21,7 +22,18 @@ mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-.then(() => console.log('Connected to MongoDB'))
+.then(async() => {
+    console.log('Connected to MongoDB')
+    const existingAdmin = await Admin.find()
+    if(!existingAdmin.length){
+        await Admin.create({
+            name: "CYON Admin", 
+            email: "cyon-admin@gmail.com", 
+            password: "admin@123"
+        })
+        onsole.log('Admin seeded') 
+    }
+})
 .catch(err => console.error('MongoDB connection error:', err));
 
 // Middleware

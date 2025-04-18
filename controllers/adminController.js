@@ -12,9 +12,9 @@ const showError = helpers.showError
 
 exports.addAdmin = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password } = req.body;
     
-    const user = await User.create({ name, email, password, role });
+    const user = await User.create({ name, email, password });
 
     
     res.status(201).json({
